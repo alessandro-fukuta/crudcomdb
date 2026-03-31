@@ -11,6 +11,8 @@ namespace crudcomdb.Data {
         // aqui vamos inserir as classes que representam nossas tabelas no banco de dados
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+        
         
 	
     }

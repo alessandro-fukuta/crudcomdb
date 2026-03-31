@@ -32,6 +32,14 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/blazor/es3/crudcomdb/Components/Pages/Categorias/List copy.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXRlZ29yaWFzXExpc3QgY29weS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blazor/es3/crudcomdb/Components/Pages/Categorias/List.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXRlZ29yaWFzXExpc3QucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/blazor/es3/crudcomdb/Components/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb3VudGVyLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -42,6 +50,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/blazor/es3/crudcomdb/Components/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xIb21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blazor/es3/crudcomdb/Components/Pages/Produtos/AddEdit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9kdXRvc1xBZGRFZGl0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blazor/es3/crudcomdb/Components/Pages/Produtos/List.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9kdXRvc1xMaXN0LnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/blazor/es3/crudcomdb/Components/Pages/Weather.razor]
