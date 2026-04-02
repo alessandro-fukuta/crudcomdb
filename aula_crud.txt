@@ -1,8 +1,31 @@
+criar a classe que representa nossa tabela de dados
+
+adicionar no AppDbContext  a model 
+
+rodar a migration com os seguintes comandos
+
+dotnet ef migrations add Tabela_Fornecedor
+
+de depois:
+
+dotnet ef database update 
+
+criar o repositorio
+
+criar a interface
+
+
+
 1º registrar a interface e o repositorio no << program.cs >>
 
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
 -----------------------------------------------------------------------------------
+
+2. criar ou ir para a pagina de List da model
+
+----------------------------------------------------------------------
+
 
 2º injetar ICategoriaRepository e dar um nome a ela dentro do List.razor
 

@@ -12,6 +12,10 @@ namespace crudcomdb.Data {
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Categoria> Categorias { get; set; }
         public DbSet<Produto> Produtos { get; set; }
+
+        // registro a nova classe para o Entity Framework
+        // saber que existe uma nova tabela para ser administrada.
+        public DbSet<Fornecedor> Fornecedores { get; set; }
         
         
 	

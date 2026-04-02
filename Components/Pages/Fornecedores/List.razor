@@ -1,0 +1,131 @@
+@page "/fornecedores"
+@rendermode InteractiveServer
+
+@inject IFornecedorRepository fornecedorRepo
+
+<h1>Fornecedores</h1>
+
+<div class="row mt-3">
+
+    <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Nome"
+         @bind="fornecedor.Nome" />
+    </div>
+
+    <div class="col-md-2">
+        <input type="text" class="form-control" placeholder="CNPJ" @bind="fornecedor.Cnpj" />
+    </div>
+
+    <div class="col-md-2">
+        <input type="text" class="form-control" placeholder="Cep: 14400-000" 
+               @bind="fornecedor.Cep" />
+    </div>
+
+    <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Endereço" 
+               @bind="fornecedor.Endereco" />   
+    </div>
+
+</div>
+
+<div class="row mt-3">
+
+    <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Bairro" @bind="fornecedor.Bairro" />
+    </div>
+    <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Cidade" @bind="fornecedor.Cidade" />
+    </div>
+    <div class="col-md-1">
+        <input type="text" class="form-control" placeholder="UF" @bind="fornecedor.Estado" />
+    </div>
+    <div class="col-md-4">
+        <input type="text" class="form-control" placeholder="Telefone" @bind="fornecedor.Telefone" />
+    </div>
+
+</div>
+
+<div class="row mt-3">
+
+    <div class="col-md-2">
+        <button class="btn btn-primary" @onclick="SalvarDados">Salvar</button>
+    </div>
+
+</div>
+
+<table class="table table-striped">
+
+    <thead>
+
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+        </tr>
+
+    </thead>
+    <tbody>
+
+        @foreach (var fornecedor in fornecedores)
+        {
+            <tr>
+                <td>@fornecedor.Id</td>
+                <td>@fornecedor.Nome</td>
+                <td>@fornecedor.Cnpj</td>
+            </tr>
+        }
+
+    </tbody>
+
+
+</table>
+
+
+
+
+
+<style>
+    h1 {
+        color: white;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        background-color: #800080;
+    }
+</style>
+
+@code {
+
+    // declaraçao de variaveis
+    Fornecedor fornecedor = new Fornecedor();
+    List<Fornecedor> fornecedores = new List<Fornecedor>();
+    bool ehInclusao = true;
+
+    // que o metodo OnInitializedAsync seja executado quando o componente for inicializado
+    protected override async Task OnInitializedAsync()
+    {
+        fornecedores = await fornecedorRepo.Listar();
+    }
+
+
+    // metodo salvar
+    private async Task SalvarDados(){
+
+        if (ehInclusao)
+        {
+            await fornecedorRepo.Incluir(fornecedor);  // metodo de inclusao
+        }
+        else
+        {
+            await fornecedorRepo.Atualizar(fornecedor);  // metodo de atualizaçao
+        }
+
+        fornecedores = await fornecedorRepo.Listar();
+        fornecedor = new Fornecedor();
+        ehInclusao = true;
+
+    }
+
+
+
+}
+

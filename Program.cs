@@ -23,6 +23,9 @@ builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
+builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
