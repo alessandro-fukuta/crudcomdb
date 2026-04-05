@@ -75,9 +75,9 @@ Para executar este projeto em sua máquina local, você precisará de:
 
 ## Links de vídeos relacionados
 
-[Componentes] (https://youtu.be/wAJAeqt8eSI)
-[InputSelect] (https://youtu.be/wyeTJ6_Rzg8)
-[Mascaras]    (https://youtu.be/kZxMfeyseTQ)
+* [Componentes] (https://youtu.be/wAJAeqt8eSI).
+* [InputSelect] (https://youtu.be/wyeTJ6_Rzg8).
+* [Mascaras]    (https://youtu.be/kZxMfeyseTQ).
 
 ---
 
