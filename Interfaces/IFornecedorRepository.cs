@@ -5,7 +5,7 @@ namespace crudcomdb.Interfaces{
     {
             Task Atualizar(Fornecedor Fornecedor);
             Task<Fornecedor?> BuscarPorId(int id);
-            Task Deletar(int id);
+            Task Deletar(int id); // parametro do Id do Fornecedor
             Task<List<Fornecedor>> Listar();
             Task Incluir(Fornecedor Fornecedor);
     }

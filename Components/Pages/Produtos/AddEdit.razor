@@ -107,6 +107,16 @@
     </div>
 }
 
+var categorias = await _catRepo.Listar();
+_ListagemCategorias = categorias.OrderBy(c => c.Nome).ToList();
+
+
+_ListagemCategorias = categorias
+    .Where(x => !string.IsNullOrWhiteSpace(x.Nome)) // Filtra (remove os brancos)
+    .OrderBy(x => x.Nome)                          // Ordena
+    .ToList();
+
+
 @code {
     [Parameter] public EventCallback OnProcessoConcluido { get; set; }
 

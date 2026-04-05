@@ -1,0 +1,36 @@
+<div class="card @CorTexto @CorBackGround mb-3" style="max-width: 18rem">
+
+    <div class="card-header">@Titulo</div>
+
+    <div class="card-body">
+        <h5 class="card-title">@Subtitulo</h5>
+        <p class="card-text">@Descricao</p>
+    </div>
+
+</div>
+
+@code {
+
+    [Parameter]
+    public string Titulo { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Subtitulo { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Descricao { get; set; } = string.Empty;
+
+    [Parameter]
+    public string CorBackGround { get; set; } = "bg-primary";
+    
+    [Parameter]
+    public string CorTexto { get; set; } = "text-white";
+
+    // bg-primary - azul
+    // bg-secondary - cinza
+    // bg-success - verde
+    // bg-danger - vermelho
+    // bg-warning - amarelo
+
+
+}
