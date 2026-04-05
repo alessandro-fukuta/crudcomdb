@@ -14,7 +14,9 @@
 
 <button class="btn btn-primary" @onclick="Incluir">Nova Categoria</button>
 
+@if(exibirFormulario) {
 
+<div class="formulario">
 <div class="row mt-3">
 
     <div class="col-md-4">
@@ -23,13 +25,30 @@
          @bind="fornecedor.Nome" />
     </div>
 
-    <div class="col-md-2">
-        <input type="text" class="form-control" placeholder="CNPJ" @bind="fornecedor.Cnpj" />
+    <div class="col-md-3">
+        
+       <input type="text" 
+            class="form-control" 
+            placeholder="00.000.000/0000-00"
+            value="@fornecedor.Cnpj" 
+            @oninput="OnCnpjInput" 
+            maxlength="18" />
+
+    
     </div>
 
     <div class="col-md-2">
-        <input type="text" class="form-control" placeholder="Cep: 14400-000" 
-               @bind="fornecedor.Cep" />
+
+
+        <input type="text" 
+               class="form-control" 
+               placeholder="00000-000" 
+               value="@fornecedor.Cep"
+               maxlength="9"
+               @oninput="OnCepInput" 
+               />
+    
+    
     </div>
 
     <div class="col-md-3">
@@ -51,7 +70,15 @@
         <input type="text" class="form-control" placeholder="UF" @bind="fornecedor.Estado" />
     </div>
     <div class="col-md-3">
-        <input type="text" class="form-control" placeholder="Telefone" @bind="fornecedor.Telefone" />
+
+        <input type="text" 
+               class="form-control" 
+               placeholder="Telefone" 
+               value="@fornecedor.Telefone"
+               @oninput="OnTelefoneInput"
+               maxlength="15" 
+               />
+    
     </div>
 
 </div>
@@ -71,6 +98,11 @@
         O nome do fornecedor é obrigatório.
     </div>
 }
+
+</div>  @* fim do formulario *@
+
+}
+
 
 
 <table class="table table-striped">
@@ -117,9 +149,6 @@
 </table>
 
 
-
-
-
 <style>
     h1 {
         color: white;
@@ -127,7 +156,24 @@
         margin-bottom: 20px;
         background-color: #800080;
     }
+    .form-control {
+        border-radius: 10;
+        border: 1px solid #aeabab;
+        padding: 10px;
+        font-size: 1em; }
+    .formulario{
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+        border: 1px solid #aeabab;
+    }
+        
 </style>
+
+
+
+
 
 @code {
 
@@ -136,6 +182,7 @@
     List<Fornecedor> fornecedores = new List<Fornecedor>();
     bool ehInclusao = true;
     bool mostrarMensagemErro = false;
+    bool exibirFormulario = false;
     
      // vamos criar a variavel para dar o foco no campo nome
     ElementReference _nomeRef;  // variavel de referencia
@@ -171,12 +218,17 @@
         fornecedor = new Fornecedor();
         ehInclusao = true;
         mostrarMensagemErro = false;  // esconde a mensagem de erro depois de salvar
+        exibirFormulario=false;
 
     }
 
     private async Task Incluir(){
         
         mostrarMensagemErro = false;  // esconde a mensagem de erro quando clicar em incluir
+        
+        exibirFormulario = true;
+
+        await Task.Delay(100);
 
         fornecedor = new Fornecedor();  // limpa o formulario porque objeto fica vazio
 
@@ -189,6 +241,8 @@
 
 
     private async Task Editar(Fornecedor _forn) {
+        exibirFormulario = true;  // exibe o formulario
+        await Task.Delay(100); // pequeno delay para garantir que o formulario esteja renderizado antes de tentar dar o foco
         fornecedor = _forn;  // preenche o formulario com os dados do fornecedor selecionado
         ehInclusao = false;  // diz ao software que é alteração
         await _nomeRef.FocusAsync();  // comando para dar o foco no campo nome
@@ -200,6 +254,111 @@
     }
 
 
+    private void OnCnpjInput(ChangeEventArgs e)
+    {
+        // 1. Pega o valor bruto do input
+        string valorInput = e.Value?.ToString() ?? "";
+
+        // 2. Remove tudo que não for dígito
+        string apenasNumeros = new string(valorInput.Where(char.IsDigit).ToArray());
+
+        // 3. Limita a 14 dígitos (tamanho máximo do CNPJ)
+        if (apenasNumeros.Length > 14)
+            apenasNumeros = apenasNumeros.Substring(0, 14);
+
+        // 4. Aplica a máscara progressivamente
+        string resultado = apenasNumeros;
+
+        if (apenasNumeros.Length > 2)
+            resultado = resultado.Insert(2, ".");
+        
+        if (apenasNumeros.Length > 5)
+            resultado = resultado.Insert(6, ".");
+        
+        if (apenasNumeros.Length > 8)
+            resultado = resultado.Insert(10, "/");
+        
+        if (apenasNumeros.Length > 12)
+            resultado = resultado.Insert(15, "-");
+
+        // 5. Atualiza o modelo (isso refletirá no 'value' do input)
+        fornecedor.Cnpj = resultado;
+    }
+
+
+    private void OnCepInput(ChangeEventArgs e)
+    {
+        // 1. Pega o valor digitado
+        string valorInput = e.Value?.ToString() ?? "";
+
+        // 2. Mantém apenas números
+        string apenasNumeros = new string(valorInput.Where(char.IsDigit).ToArray());
+
+        // 3. Limita a 8 dígitos (tamanho padrão de CEP)
+        if (apenasNumeros.Length > 8)
+            apenasNumeros = apenasNumeros.Substring(0, 8);
+
+        // 4. Aplica a máscara: 00000-000
+        string resultado = apenasNumeros;
+
+        if (apenasNumeros.Length > 5)
+        {
+            resultado = resultado.Insert(5, "-");
+        }
+
+        // 5. Atualiza o objeto fornecedor
+        fornecedor.Cep = resultado;
+    }
+
+
+
+private void OnTelefoneInput(ChangeEventArgs e)
+{
+    string valorInput = e.Value?.ToString() ?? "";
+    string apenasNumeros = new string(valorInput.Where(char.IsDigit).ToArray());
+
+    // Limita ao máximo de 11 dígitos (DDD + 9 dígitos)
+    if (apenasNumeros.Length > 11)
+        apenasNumeros = apenasNumeros.Substring(0, 11);
+
+    string resultado = apenasNumeros;
+
+    // 1. Aplica o parênteses do DDD: (00
+    if (apenasNumeros.Length > 0)
+    {
+        resultado = "(" + apenasNumeros;
+    }
+
+    // 2. Fecha o parênteses: (00) 
+    if (apenasNumeros.Length > 2)
+    {
+        resultado = resultado.Insert(3, ") ");
+    }
+
+    // 3. Lógica do Hífen Dinâmico
+    if (apenasNumeros.Length > 2)
+    {
+        // Se tem até 10 dígitos (DDD + 8), é telefone FIXO: (00) 0000-0000
+        if (apenasNumeros.Length <= 10)
+        {
+            if (apenasNumeros.Length > 6)
+                resultado = resultado.Insert(9, "-");
+        }
+        // Se tem 11 dígitos (DDD + 9), é CELULAR: (00) 00000-0000
+        else
+        {
+            if (apenasNumeros.Length > 7)
+                resultado = resultado.Insert(10, "-");
+        }
+    }
+
+    fornecedor.Telefone = resultado;
+}
+
+
+
+
+// fim do code
 
 }
 

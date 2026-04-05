@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("crudcomdb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ed7e5d89cc44aa58931f886393db91e7ed73db54")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51104fff35cb8247c2e5faf38a7d06718fc98848")]
 [assembly: System.Reflection.AssemblyProductAttribute("crudcomdb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("crudcomdb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

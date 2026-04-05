@@ -39,7 +39,7 @@ Implementação robusta utilizando **PostgreSQL** com o **Entity Framework Core*
 
 Para executar este projeto em sua máquina local, você precisará de:
 
-*   [.NET SDK 8.0](https://dotnet.microsoft.com/download) ou superior.
+*   [.NET SDK 9.0](https://dotnet.microsoft.com/download) ou superior.
 *   [PostgreSQL](https://www.postgresql.org/download/) instalado e rodando.
 *   IDE recomendada: [Visual Studio 2022](https://visualstudio.microsoft.com/) ou [VS Code](https://code.visualstudio.com/).
 
@@ -68,8 +68,18 @@ Para executar este projeto em sua máquina local, você precisará de:
 
 4.  **Rode a Aplicação:**
     ```bash
-    dotnet run
+    dotnet watch
     ```
+
+---
+
+## Links de vídeos relacionados
+
+[Componentes] (https://youtu.be/wAJAeqt8eSI)
+[InputSelect] (https://youtu.be/wyeTJ6_Rzg8)
+[Mascaras]    (https://youtu.be/kZxMfeyseTQ)
+
+---
 
 ---
 
