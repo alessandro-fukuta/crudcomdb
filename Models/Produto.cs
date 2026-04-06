@@ -16,7 +16,7 @@ namespace crudcomdb.Models
         public decimal EstoqueMinimo { get; set; }
         public decimal EstoqueMaximo { get; set; }
         public decimal EstoqueAtual { get; set; }
-    
+      
         public int CategoriaId { get; set; }
         
         [ForeignKey("CategoriaId")]

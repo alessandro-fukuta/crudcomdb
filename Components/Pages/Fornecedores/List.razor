@@ -1,9 +1,10 @@
 @page "/fornecedores"
+@using crudcomdb.Components.Pages.Componentes
 @rendermode InteractiveServer
 
 @inject IFornecedorRepository fornecedorRepo
 
-<h1>Fornecedores</h1>
+<TituloForm Titulo="Fornecedores" />
 
 @*
 // abaixo vamos inserir um botão para incluir um novo fornecedor
@@ -12,7 +13,7 @@
 // esse método vai limpar o formulario e preparar o software para receber os dados
 *@
 
-<button class="btn btn-primary" @onclick="Incluir">Nova Categoria</button>
+<button class="btn btn-primary" @onclick="Incluir">Novo</button>
 
 @if(exibirFormulario) {
 
@@ -155,9 +156,11 @@
         font-size: 2.5em;
         margin-bottom: 20px;
         background-color: #800080;
+        padding: 10px;
+        border-radius: 10px;
     }
     .form-control {
-        border-radius: 10;
+        border-radius: 10px;
         border: 1px solid #aeabab;
         padding: 10px;
         font-size: 1em; }
