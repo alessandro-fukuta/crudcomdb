@@ -40,6 +40,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXRlZ29yaWFzXExpc3QucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/blazor/es3/crudcomdb/Components/Pages/Categorias/ListCards.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDYXRlZ29yaWFzXExpc3RDYXJkcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/blazor/es3/crudcomdb/Components/Pages/Componentes/Cartao.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xDb21wb25lbnRlc1xDYXJ0YW8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +74,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/blazor/es3/crudcomdb/Components/Pages/Produtos/List.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xQcm9kdXRvc1xMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blazor/es3/crudcomdb/Components/Pages/Veiculos/FormVeiculo.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWljdWxvc1xGb3JtVmVpY3Vsby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/blazor/es3/crudcomdb/Components/Pages/Veiculos/ListaVeiculos.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xWZWljdWxvc1xMaXN0YVZlaWN1bG9zLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/blazor/es3/crudcomdb/Components/Pages/Vendas/Selecao.razor]

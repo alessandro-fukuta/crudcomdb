@@ -1,4 +1,4 @@
-@page "/categorias"
+@page "/cat"
 @rendermode InteractiveServer
 @using crudcomdb.Components.Pages.Componentes
 @using crudcomdb.Interfaces
@@ -38,28 +38,27 @@
 </div>
 
 <table class="table table-sm table-striped">
-    <thead>
-        <td>Id</td>
-        <td>Nome da Categoria</td>
-        <td>Ações</td>
-    </thead>
-   
+      
    <tbody>
 
         @foreach(var item in _ListagemCategorias)
         {
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Nome</td>
+               
                 <td>
-                   
+                    <Cartao Titulo="@item.Nome"
+                            Subtitulo="@item.Id.ToString()"
+                            Descricao="Dados da Categoria"
+                            CorBackGround="bg-warning"
+                            CorTexto="text-dark"
+                    />
                     <button class="btn btn-sm btn-primary"
                           @onclick="() => Editar(item)">
                            Editar
                     </button>
-
-                    <button class="btn btn-sm btn-danger">Excluir</button>
+                      <button class="btn btn-sm btn-danger">Excluir</button>
                 </td>
+               
             </tr>
         }
        

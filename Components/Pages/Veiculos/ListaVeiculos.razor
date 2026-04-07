@@ -1,0 +1,58 @@
+@page "/veiculos"
+@inject IVeiculoRepository Repo
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<h3>Cadastro de Veículos</h3>
+
+<button class="btn btn-primary mb-3" @onclick='() => Nav.NavigateTo("/veiculos/novo")'>
+    Novo Veículo
+</button>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Marca/Modelo</th>
+            <th>Placa</th>
+            <th>Ano</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in veiculos)
+        {
+            <tr>
+                <td>@v.Marca @v.Modelo</td>
+                <td>@v.Placa</td>
+                <td>@v.Ano</td>
+                <td>
+          
+             <td>
+                <button class="btn btn-sm btn-warning" @onclick="() => Editar(v.Id)">Editar</button>
+                <button class="btn btn-sm btn-danger" @onclick="() => Excluir(v.Id)">Excluir</button>
+            </td>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Veiculo> veiculos = new();
+
+    protected override async Task OnInitializedAsync() => veiculos = await Repo.Listar();
+
+    private void Editar(int id)
+    {
+        Nav.NavigateTo($"/veiculos/editar/{id}");
+    }
+
+    private async Task Excluir(int id)
+    {
+        // Adicione um confirm simples para evitar exclusões acidentais
+        // if (await JS.InvokeAsync<bool>("confirm", "Deseja excluir este veículo?")) { 
+            await Repo.Deletar(id);
+            veiculos = await Repo.Listar();
+        // }
+    }
+}

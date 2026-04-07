@@ -1,0 +1,59 @@
+@page "/veiculos/novo"
+@page "/veiculos/editar/{Id:int}"
+@inject IVeiculoRepository Repo
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<h3>@(Id == 0 ? "Novo Veículo" : "Editar Veículo")</h3>
+
+<EditForm Model="veiculo" OnValidSubmit="Salvar">
+    <div class="mb-3">
+        <label>Marca</label>
+        <InputText @bind-Value="veiculo.Marca" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Modelo</label>
+        <InputText @bind-Value="veiculo.Modelo" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Placa</label>
+        <InputText @bind-Value="veiculo.Placa" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Ano</label>
+        <InputNumber @bind-Value="veiculo.Ano" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+    
+    <button type="button" class="btn btn-secondary" @onclick='() => Nav.NavigateTo("/veiculos")'>
+        Cancelar
+    </button>
+    
+ 
+</EditForm>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private Veiculo veiculo = new();
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (Id != 0)
+        {
+            var v = await Repo.BuscarPorId(Id);
+            if (v != null) veiculo = v;
+        }
+    }
+
+    private void Voltar() => Nav.NavigateTo("/veiculos");
+
+
+    private async Task Salvar()
+    {
+        if (Id == 0) await Repo.Salvar(veiculo);
+        else await Repo.Atualizar(veiculo);
+        
+        Nav.NavigateTo("/veiculos");
+    }
+}

@@ -246,3 +246,178 @@ VAMOS COLOCAR UM STYLE PARA DEIXAR MAIS BONITA NOSSA tela
     }
 
 </style>
+
+
+
+// CADASTRO DE VEICULOS USANDO IA
+
+voce é meu engenheiro de software senior, 
+eu tenho ja um projeto em andamento, mas preciso criar um novo cadastro, 
+meu projeto é em c# eu uso Blazor e banco de dados Postgres. 
+Estou usando o AppDbContext para me contexto de dados. 
+Eu quero criar um cadastro de veiculos que contenha um List, um Add, um Edit, 
+e no List eu quero a opção para deletar.
+Detalhe, estou usando o Visual Studio Code para implementar o projeto.
+
+
+Segue um modelo de models, interface e repositorio que tenho no meu projeto
+
+namespace crudcomdb.Models
+{
+    public class Categoria
+    {
+        public int Id { get; set; }
+        public string? Nome { get; set; }
+    }
+}
+
+
+segue a interface
+
+using crudcomdb.Models;
+using crudcomdb.Repositories;
+
+namespace crudcomdb.Interfaces
+{
+    public interface ICategoriaRepository
+    {
+        Task<List<Categoria>> Listar();
+        Task<Categoria?> BuscarPorId(int id);
+        Task Salvar(Categoria categoria);
+        Task Atualizar(Categoria categoria);
+        Task Deletar(int id);
+    }
+}
+
+
+e o meu repositorio
+
+using crudcomdb.Models;
+using crudcomdb.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using crudcomdb.Data;
+
+namespace crudcomdb.Repositories
+{
+    public class CategoriaRepository : ICategoriaRepository
+    {
+        private readonly AppDbContext _context;
+
+        public CategoriaRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<List<Categoria>> Listar()
+        {
+            return await _context.Categorias.ToListAsync();
+        }
+
+        public async Task<Categoria?> BuscarPorId(int id)
+        {
+            return await _context.Categorias.FindAsync(id);
+        }
+
+        public async Task Salvar(Categoria categoria)
+        {
+            _context.Categorias.Add(categoria);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Atualizar(Categoria categoria)
+        {
+            _context.Categorias.Update(categoria);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Deletar(int id)
+        {
+            var Categoria = await BuscarPorId(id);
+            if (Categoria != null)
+            {
+                _context.Categorias.Remove(Categoria);
+                await _context.SaveChangesAsync();
+            }
+        }
+    }
+}
+
+
+para seu contexto segue meu arquivo appdbcontext.cs
+
+using Microsoft.EntityFrameworkCore;
+using crudcomdb.Models;
+
+namespace crudcomdb.Data {
+    public class AppDbContext : DbContext
+    {
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+        }
+
+        // aqui vamos inserir as classes que representam nossas tabelas no banco de dados
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Categoria> Categorias { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+
+        // registro a nova classe para o Entity Framework
+        // saber que existe uma nova tabela para ser administrada.
+        public DbSet<Fornecedor> Fornecedores { get; set; }
+        
+        
+    
+    }
+
+}
+
+
+e por fim meu program.cs
+
+using crudcomdb.Components;
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+using crudcomdb.Data;
+using crudcomdb.Interfaces;
+using crudcomdb.Repositories;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Pegar a Connection String
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// 2. Registrar o DbContext (AGORA NO LUGAR CERTO)
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(connectionString));
+
+// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+// Registrar o repositório de categorias
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+
+builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
+builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+
+app.UseAntiforgery();
+
+app.MapStaticAssets();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+
+app.Run();
